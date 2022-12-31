@@ -7,6 +7,7 @@ export function meta() {
   return {
     charset: 'UTF-8',
     title: 'GuitarLA - Remix',
+    description: 'Pagina de venta de guitaras',
     viewport: 'width=device-width, initial-scale=1.0',
   };
 }
