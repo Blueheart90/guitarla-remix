@@ -1,4 +1,12 @@
-import { Meta, Links, Outlet, Scripts, LiveReload } from '@remix-run/react';
+import {
+  Meta,
+  Links,
+  Outlet,
+  Scripts,
+  LiveReload,
+  useCatch,
+  Link,
+} from '@remix-run/react';
 import styles from '~/styles/index.css';
 import Header from '~/components/header';
 import Footer from '~/components/footer';
@@ -59,5 +67,36 @@ function Document({ children }) {
         <Footer />
       </body>
     </html>
+  );
+}
+
+// Manejo de errores
+
+// Se ejecuta cuando creamos un excepcion
+export function CatchBoundary() {
+  const caught = useCatch();
+  return (
+    <Document>
+      <p className="error">
+        {caught.status} {caught.statusText}
+      </p>
+      <Link className="error-enlace" to="/">
+        Volver al inicio
+      </Link>
+    </Document>
+  );
+}
+
+// cuando el propio remix atrapa un error
+export function ErrorBoundary({ error }) {
+  return (
+    <Document>
+      <p className="error">
+        {error.status} {error.statusText}
+      </p>
+      <Link className="error-enlace" to="/">
+        Volver al inicio
+      </Link>
+    </Document>
   );
 }
