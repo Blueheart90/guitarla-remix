@@ -1,4 +1,5 @@
 import { Link, useLocation } from '@remix-run/react';
+import cartImg from '../../public/img/carrito.png';
 function Navegacion() {
   const location = useLocation();
   return (
@@ -23,6 +24,9 @@ function Navegacion() {
         className={location.pathname === '/blog' ? 'active' : ''}
       >
         Blog
+      </Link>
+      <Link to="/carrito">
+        <img src={cartImg} alt="Carrito de compras" />
       </Link>
     </nav>
   );
