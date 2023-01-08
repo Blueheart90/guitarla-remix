@@ -13,7 +13,7 @@ function Post({ post }) {
         <h3>{title}</h3>
         <p className="fecha">{dateFormated(publishedAt)}</p>
         <p className="resumen">{content}</p>
-        <Link className="enlace" to={`/post/${url}`}>
+        <Link className="enlace" to={`/blog/${url}`}>
           Leer Post
         </Link>
       </div>

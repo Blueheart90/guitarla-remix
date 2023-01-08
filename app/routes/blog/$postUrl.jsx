@@ -27,15 +27,6 @@ export function meta({ data }) {
   };
 }
 
-export function links() {
-  return [
-    {
-      rel: 'stylesheet',
-      href: styles,
-    },
-  ];
-}
-
 function $postUrl() {
   const post = useLoaderData();
   const { title, content, publishedAt, image } = post.data[0].attributes;

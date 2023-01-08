@@ -1,12 +1,5 @@
-import { useLoaderData } from '@remix-run/react';
-import { getposts } from '~/models/post.server';
-import PostList from '~/components/postList';
+import { Outlet } from '@remix-run/react';
 import styles from '~/styles/blog.css';
-
-export async function loader() {
-  const posts = await getposts();
-  return posts.data;
-}
 
 export function meta() {
   return {
@@ -24,12 +17,7 @@ export function links() {
 }
 
 function Blog() {
-  const posts = useLoaderData();
-  return (
-    <main className="contenedor">
-      <PostList posts={posts} />
-    </main>
-  );
+  return <Outlet />;
 }
 
 export default Blog;
