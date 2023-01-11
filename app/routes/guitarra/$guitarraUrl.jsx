@@ -29,8 +29,7 @@ export function meta({ data }) {
 }
 
 function GuitarraUrl() {
-  const data = useOutletContext();
-  console.log(data);
+  const { addCart } = useOutletContext();
   const [count, setCount] = useState(0);
 
   const guitar = useLoaderData();
@@ -46,8 +45,9 @@ function GuitarraUrl() {
       image: image.data.attributes.url,
       name,
       price,
+      count,
     };
-    console.log(selectedGuitar);
+    addCart(selectedGuitar);
   };
   return (
     <div className="guitarra">

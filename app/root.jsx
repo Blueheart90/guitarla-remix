@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Meta,
   Links,
@@ -45,11 +46,57 @@ export function links() {
   ];
 }
 export default function App() {
+  // Remix corre tanto en el client como el servidor, por lo cual se recomienda que la funcion de localstorage se use dentro de un useEffect para asegurar que solo se ejecute en el client, ya que en el server dara error.
+  // en el caso que necesitemos usarlo como acontinuacion, debemos comprobar que estemos ejecutando en el client comprobando  con window
+  const initialState =
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('carrito')) ?? []
+      : null;
+  const [cart, setCart] = useState(initialState);
+
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(cart));
+  }, [cart]);
+
+  const addCart = (guitar) => {
+    if (cart.some((guitarState) => guitarState.id === guitar.id)) {
+      // get duplicate guitar
+      const updatedCart = cart.map((item) => {
+        if (item.id === guitar.id) {
+          // adjust count guitars
+          item.count += guitar.count;
+        }
+        return item;
+      });
+      setCart(updatedCart);
+    } else {
+      setCart([...cart, guitar]);
+    }
+  };
+
+  const updateCount = (guitar) => {
+    const updateCart = cart.map((guitarState) => {
+      if (guitarState.id === guitar.id) {
+        guitarState.count = guitar.count;
+      }
+      return guitarState;
+    });
+    setCart(updateCart);
+  };
+
+  const deleteItemCart = (id) => {
+    const updateCart = cart.filter((item) => item.id !== id);
+    setCart(updateCart);
+  };
   return (
     <Document>
       <Outlet
         context={{
-          guitarLa: 'GuitarLA',
+          addCart,
+          cart,
+          setCart,
+          updateCount,
+          deleteItemCart,
         }}
       />
     </Document>
